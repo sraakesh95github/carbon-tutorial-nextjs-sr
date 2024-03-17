@@ -1,8 +1,10 @@
 'use client';
 
-import React, { UseState, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FileUploader, Dropdown, Button, Grid, Column } from '@carbon/react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+// import { useRouter } from 'next/router';
 
 export default function SignalIntegrityVerification() {
   // Define the options for your Dropdown component
@@ -25,22 +27,14 @@ export default function SignalIntegrityVerification() {
 
   var selectedMessage = '';
 
-  async function handleUpload(event) {
-    const file = event.target.files[0]; // Get the file from the event
-    if (file) {
-      // Call your upload function
-      await uploadFile(file);
-    }
-  }
+  // const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
-  const beginAnalysis = () => {
-    // ... your analysis logic
-
-    // Navigate to ResultsPage after analysis
-    navigate('/results');
-  };
+  // const beginAnalysis = () => {
+  //   const router = useRouter();
+  //   router.push('/results');
+  //   // Navigate to ResultsPage after analysis
+  //   // navigate('/results');
+  // };
 
   const getEngine = (event) => {
     setSelectedEngine(event.selectedItem.label);
@@ -61,6 +55,14 @@ export default function SignalIntegrityVerification() {
 
   async function messageDropdown(event) {
     selectedMessage = event.selectedItem.label;
+  }
+
+  async function handleUpload(event) {
+    const file = event.target.files[0]; // Get the file from the event
+    if (file) {
+      // Call your upload function
+      uploadFile(file).catch(console.error);
+    }
   }
 
   async function uploadFile(file) {
@@ -131,7 +133,13 @@ export default function SignalIntegrityVerification() {
           </div>
 
           <div className="analysis-section">
-            <Button onClick={beginAnalysis}>Begin Analysis</Button>
+            <Link href="/results">
+              <Button
+              // onClick={beginAnalysis}
+              >
+                Begin Analysis
+              </Button>
+            </Link>
           </div>
         </div>
       </Column>
