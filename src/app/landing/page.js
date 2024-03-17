@@ -1,14 +1,81 @@
 'use client';
 
-import React from 'react';
+import React, { UseState, useState } from 'react';
 import { FileUploader, Dropdown, Button, Grid, Column } from '@carbon/react';
 
-function SignalIntegrityVerification() {
+export default function SignalIntegrityVerification() {
   // Define the options for your Dropdown component
-  const ecuOptions = [
-    { id: 'option-1', label: 'BCM' },
-    // Add other ECU options here
-  ];
+  //   var ecuOptions = [
+  //     { id: 'option-1', label: 'BCM' },
+  //     // Add other ECU options here
+  //   ];
+
+  const [selectedEngine, setSelectedEngine] = useState('Test Engine');
+
+  const [ecuOptions, setEcuOptions] = useState([
+    { id: 'option-1', label: 'Test' },
+    { id: 'option-2', label: 'BCM' },
+  ]);
+
+  const [messageOptions, setMessageOptions] = useState([
+    { id: 'option-1', label: 'Test Message' },
+    { id: 'option-2', label: 'BCM Message' },
+  ]);
+
+  var selectedMessage = '';
+
+  async function handleUpload(event) {
+    const file = event.target.files[0]; // Get the file from the event
+    if (file) {
+      // Call your upload function
+      await uploadFile(file);
+    }
+  }
+
+  const getEngine = (event) => {
+    setSelectedEngine(event.selectedItem.label);
+
+    let newMessageOptions = []; // Initialize outside of the forEach loop
+
+    ecuOptions.forEach((item) => {
+      if (item.label === event.selectedItem.label) {
+        newMessageOptions = item.message_ids.map((message, index) => ({
+          id: `option-${index}`,
+          label: message,
+        }));
+      }
+    });
+
+    setMessageOptions(newMessageOptions);
+  };
+
+  async function messageDropdown(event) {
+    selectedMessage = event.selectedItem.label;
+  }
+
+  async function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('http://127.0.0.1:8000/upload-csv/', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const newEcuOptions = data.response.map((engine_details, index) => ({
+        id: `option-${index}`,
+        label: engine_details.engine_id,
+        message_ids: engine_details.message_ids,
+      }));
+
+      setEcuOptions(newEcuOptions);
+
+      console.log(data);
+      console.log(ecuOptions);
+    }
+  }
 
   return (
     <Grid className="landing-page" fullWidth>
@@ -25,6 +92,8 @@ function SignalIntegrityVerification() {
               buttonLabel="Upload"
               filenameStatus="edit"
               iconDescription="Clear file"
+              onChange={handleUpload}
+              accept={['.csv']}
             />
           </div>
           <div className="ecu-dropdown">
@@ -34,9 +103,23 @@ function SignalIntegrityVerification() {
               titleText="Select ECU"
               helperText=""
               items={ecuOptions}
+              onChange={getEngine}
               itemToString={(item) => (item ? item.label : '')}
             />
           </div>
+
+          <div className="ecu-dropdown">
+            <Dropdown
+              id="message-dropdown"
+              label="Select trigger message"
+              titleText="Select Message"
+              helperText=""
+              onChange={messageDropdown}
+              items={messageOptions}
+              itemToString={(item) => (item ? item.label : '')}
+            />
+          </div>
+
           <div className="analysis-section">
             <Button>Begin Analysis</Button>
           </div>
@@ -45,5 +128,3 @@ function SignalIntegrityVerification() {
     </Grid>
   );
 }
-
-export default SignalIntegrityVerification;
