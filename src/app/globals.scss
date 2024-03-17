@@ -6,7 +6,8 @@
 
 @use '@/app/home/landing-page';
 @use '@/app/repos/repo-page';
-@use '@/app/landing/signal-verification-landing';
+@use '@/app/landing/signal-integrity-verification';
+@use '@/app/results/results-page';
 
 /// Remove overrides once Carbon bugs are fixed upstream.
 /// Need grid option to not add page gutters at large viewports, to also use when nesting grids

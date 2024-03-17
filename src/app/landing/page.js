@@ -2,6 +2,7 @@
 
 import React, { UseState, useState } from 'react';
 import { FileUploader, Dropdown, Button, Grid, Column } from '@carbon/react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignalIntegrityVerification() {
   // Define the options for your Dropdown component
@@ -31,6 +32,15 @@ export default function SignalIntegrityVerification() {
       await uploadFile(file);
     }
   }
+
+  const navigate = useNavigate();
+
+  const beginAnalysis = () => {
+    // ... your analysis logic
+
+    // Navigate to ResultsPage after analysis
+    navigate('/results');
+  };
 
   const getEngine = (event) => {
     setSelectedEngine(event.selectedItem.label);
@@ -121,7 +131,7 @@ export default function SignalIntegrityVerification() {
           </div>
 
           <div className="analysis-section">
-            <Button>Begin Analysis</Button>
+            <Button onClick={beginAnalysis}>Begin Analysis</Button>
           </div>
         </div>
       </Column>
