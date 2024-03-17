@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f4f4f4; // Adjust the background color as needed
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  img {
+    height: 4rem; // Adjust the size as needed
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    color: #000;
+    font-size: 2rem; // Adjust the font size as needed
+  }
+}
+
+.upload-section {
+  width: 100%;
+  max-width: 30rem; // Adjust the width as needed
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Adjust the box-shadow as needed
+
+  h2 {
+    color: #000;
+    font-size: 1.5rem; // Adjust the font size as needed
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #525252;
+    margin-bottom: 1rem;
+  }
+
+  .file-name {
+    color: #525252;
+    margin-top: 1rem;
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+}
+
+.ecu-dropdown {
+  width: 100%;
+  max-width: 30rem; // Adjust the width as needed
+  margin-bottom: 2rem;
+}
+
+.analysis-section {
+  width: 100%;
+  max-width: 30rem; // Adjust the width as needed
+
+  button {
+    width: 100%;
+    height: 3rem; // Adjust the height as needed
+    background-color: #0f62fe; // Adjust the button color as needed
+    color: #fff;
+    font-size: 1rem; // Adjust the font size as needed
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0353e9; // Adjust the hover color as needed
+    }
+  }
+}
