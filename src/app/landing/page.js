@@ -54,6 +54,12 @@ export default function SignalIntegrityVerification() {
     selectedMessage = event.selectedItem.label;
   }
 
+  const navToHome = () => {
+    router.push('/');
+    setShowResults(false);
+    console.log('navToHom called');
+  };
+
   const goToResultsPage = () => {
     router.push('/results');
     console.log('Tried router push');
@@ -146,7 +152,14 @@ export default function SignalIntegrityVerification() {
       {loading ? (
         <ProgressBar label="Performing test..." size="big" />
       ) : showResults ? (
-        <ResultsPage engine_id={selectedEngine} testResponse={testResponse} />
+        <div>
+          <ResultsPage engine_id={selectedEngine} testResponse={testResponse} />
+          <div className="Buttons">
+            <Button onClick={navToHome} kind="primary">
+              Back
+            </Button>
+          </div>
+        </div>
       ) : (
         <Grid className="landing-page" fullWidth>
           <Column lg={16} md={8} sm={4} className="landing-page__banner">

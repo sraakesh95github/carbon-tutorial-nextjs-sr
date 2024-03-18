@@ -3,9 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextArea } from '@carbon/react';
 // Make sure to create this SCSS file
+// import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function ResultsPage(props) {
   // State and handlers would go here
+
+  const router = useRouter();
 
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
