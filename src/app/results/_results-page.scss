@@ -16,7 +16,7 @@
     }
   }
 
-  .results {
+  .results-pass {
     background-color: #3d8361;
     color: #fff;
     padding: 1rem;
@@ -43,6 +43,25 @@
     }
     a {
       color: #0f62fe;
+    }
+  }
+
+  .results-fail {
+    background-color: #c26310;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .status-pass {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .status-description {
+      flex-grow: 1;
+      text-align: center;
     }
   }
 
